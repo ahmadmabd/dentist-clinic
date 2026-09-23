@@ -9,4 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Patient'
+export type * from './models/Treatment'
+export type * from './models/Payment'
 export type * from './commonInputTypes'
