@@ -1,5 +1,5 @@
-import PatientPage from "@/components/patients/PatientPage";
+import ClinicHome from "@/components/landing/ClinicHome";
 
-export default function Page() {
-  return <PatientPage />;
+export default function HomePage() {
+  return <ClinicHome />;
 }
