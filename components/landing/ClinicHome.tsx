@@ -45,25 +45,26 @@ export default function ClinicHome() {
       {/* Main content */}
       <section className="relative flex flex-1 items-center justify-center px-4 py-10 sm:px-8 lg:px-12">
         {/* Background image */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
           {images.map((image, index) => (
             <div
               key={image}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
                 currentImage === index ? "opacity-100" : "opacity-0"
               }`}
             >
               <Image
                 src={image}
                 alt="Omar Abdallah Dental Clinic"
-                fill
+                width={1920}
+                height={1080}
                 priority={index === 0}
-                className="object-cover"
+                sizes="100vw"
+                className="w-full h-full object-cover object-[center_53%]"
               />
             </div>
           ))}
 
-          {/* Dark overlay */}
           <div className="absolute inset-0 bg-black/55" />
         </div>
 
