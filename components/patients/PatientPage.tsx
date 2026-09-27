@@ -92,8 +92,10 @@ export default function PatientPage() {
 
     return patients.filter((patient) => {
       const fullName = `${patient.firstName} ${patient.lastName}`.toLowerCase();
+      const phone = patient.phone.replace(/[\s-]/g, "");
+      const searchValue = value.replace(/[\s-]/g, "");
 
-      return fullName.includes(value);
+      return fullName.includes(value) || phone.includes(searchValue);
     });
   }, [patients, search]);
 
