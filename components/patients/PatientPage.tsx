@@ -638,6 +638,7 @@ export default function PatientPage() {
         patient={selectedPatient}
         onClose={closeViewModal}
         onAddPayment={openPaymentModal}
+        onDeletePayment={handleDeletePayment}
         calculatePaid={calculatePaid}
         calculateRemaining={calculateRemaining}
         formatMoney={formatMoney}

@@ -18,7 +18,7 @@ type ViewPatientModalProps = {
   show: boolean;
   onClose: () => void;
   onAddPayment: (patient: Patient) => void;
-  onDeletePayment: (patientId: number, paymentId: number) => void;
+  onDeletePayment: (patientId: number, paymentId: number) => Promise<void>;
   calculatePaid: (patient: Patient) => number;
   calculateRemaining: (patient: Patient) => number;
   formatMoney: (value: number | string) => string;
@@ -44,6 +44,8 @@ export default function ViewPatientModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm">
       <div className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-white shadow-2xl">
+        {/* HEADER */}
+
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white px-6 py-5">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-100 to-blue-100 font-bold text-cyan-700">
@@ -157,6 +159,8 @@ export default function ViewPatientModal({
               </button>
             </div>
 
+            {/* PAYMENT SUMMARY */}
+
             <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
               <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                 <p className="text-xs text-slate-500">Total Price</p>
@@ -183,6 +187,8 @@ export default function ViewPatientModal({
               </div>
             </div>
 
+            {/* PAYMENT LIST */}
+
             {patient.payments.length === 0 ? (
               <div className="rounded-2xl bg-slate-50 p-7 text-center">
                 <CreditCard size={28} className="mx-auto mb-2 text-slate-300" />
@@ -201,6 +207,8 @@ export default function ViewPatientModal({
                       key={payment.id}
                       className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4"
                     >
+                      {/* PAYMENT INFO */}
+
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                           <CreditCard size={17} />
@@ -217,6 +225,8 @@ export default function ViewPatientModal({
                         </div>
                       </div>
 
+                      {/* PAYMENT AMOUNT + DELETE */}
+
                       <div className="flex items-center gap-4">
                         <p className="font-bold text-emerald-600">
                           {formatMoney(payment.amount)}
@@ -224,7 +234,7 @@ export default function ViewPatientModal({
 
                         <button
                           type="button"
-                          title={`Delete Payment ${paymentNumber}`}
+                          title="Delete payment"
                           onClick={() =>
                             onDeletePayment(patient.id, payment.id)
                           }
