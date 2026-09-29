@@ -1,6 +1,14 @@
 "use client";
 
-import { CreditCard, MapPin, Phone, Plus, Wallet, X } from "lucide-react";
+import {
+  CreditCard,
+  MapPin,
+  Phone,
+  Plus,
+  Trash2,
+  Wallet,
+  X,
+} from "lucide-react";
 
 import { Patient } from "./patientTypes";
 import TreatmentTable from "./TreatmentTable";
@@ -10,6 +18,7 @@ type ViewPatientModalProps = {
   show: boolean;
   onClose: () => void;
   onAddPayment: (patient: Patient) => void;
+  onDeletePayment: (patientId: number, paymentId: number) => void;
   calculatePaid: (patient: Patient) => number;
   calculateRemaining: (patient: Patient) => number;
   formatMoney: (value: number | string) => string;
@@ -21,6 +30,7 @@ export default function ViewPatientModal({
   show,
   onClose,
   onAddPayment,
+  onDeletePayment,
   calculatePaid,
   calculateRemaining,
   formatMoney,
@@ -207,9 +217,22 @@ export default function ViewPatientModal({
                         </div>
                       </div>
 
-                      <p className="font-bold text-emerald-600">
-                        {formatMoney(payment.amount)}
-                      </p>
+                      <div className="flex items-center gap-4">
+                        <p className="font-bold text-emerald-600">
+                          {formatMoney(payment.amount)}
+                        </p>
+
+                        <button
+                          type="button"
+                          title={`Delete Payment ${paymentNumber}`}
+                          onClick={() =>
+                            onDeletePayment(patient.id, payment.id)
+                          }
+                          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition hover:bg-red-50 hover:text-red-600"
+                        >
+                          <Trash2 size={17} />
+                        </button>
+                      </div>
                     </div>
                   );
                 })}

@@ -32,7 +32,7 @@ export default function TreatmentTable({
     }
 
     return (
-      <div className="w-[500px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+      <div className="w-[600px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -47,6 +47,9 @@ export default function TreatmentTable({
 
                 <th className="border-b border-slate-200 px-3 py-2 text-left text-[11px] font-bold uppercase tracking-wide text-slate-500">
                   After
+                </th>
+                <th className="border-b border-slate-200 px-3 py-2 text-left text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                  Date
                 </th>
               </tr>
             </thead>
@@ -67,6 +70,14 @@ export default function TreatmentTable({
 
                   <td className="max-w-[150px] px-3 py-2.5 text-xs text-slate-500">
                     {treatment.after || "-"}
+                  </td>
+
+                  <td className="px-3 py-2.5 text-xs text-slate-500">
+                    {treatment.createdAt
+                      ? new Date(treatment.createdAt).toLocaleDateString(
+                          "en-GB",
+                        )
+                      : "-"}
                   </td>
                 </tr>
               ))}

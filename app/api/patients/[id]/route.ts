@@ -7,9 +7,15 @@ export async function GET(
   try {
     const { id } = await params;
 
+    const patientId = Number(id);
+
+    if (isNaN(patientId)) {
+      return Response.json({ message: "Invalid patient ID" }, { status: 400 });
+    }
+
     const patient = await prisma.patient.findUnique({
       where: {
-        id: Number(id),
+        id: patientId,
       },
       include: {
         treatments: true,
@@ -42,51 +48,113 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const body = await request.json();
 
     const patientId = Number(id);
 
-    const patient = await prisma.patient.findUnique({
+    if (isNaN(patientId)) {
+      return Response.json({ message: "Invalid patient ID" }, { status: 400 });
+    }
+
+    const body = await request.json();
+
+    const existingPatient = await prisma.patient.findUnique({
       where: {
         id: patientId,
       },
+      include: {
+        treatments: true,
+      },
     });
 
-    if (!patient) {
+    if (!existingPatient) {
       return Response.json({ message: "Patient not found" }, { status: 404 });
     }
 
-    // Delete old treatments
-    await prisma.treatment.deleteMany({
-      where: {
-        patientId,
-      },
-    });
+    const incomingTreatments = body.treatments || [];
 
-    // Update patient and create new treatments
-    const updatedPatient = await prisma.patient.update({
-      where: {
-        id: patientId,
-      },
+    const existingTreatmentIds = existingPatient.treatments.map(
+      (treatment) => treatment.id,
+    );
 
-      data: {
-        firstName: body.firstName,
-        lastName: body.lastName,
-        phone: body.phone,
-        totalPrice: Number(body.totalPrice),
-        address: body.address,
+    const incomingTreatmentIds = incomingTreatments
+      .filter((treatment: { id?: number }) => treatment.id)
+      .map((treatment: { id: number }) => Number(treatment.id));
 
-        treatments: {
-          create: (body.treatments || []).map(
-            (treatment: { name: string; before: string; after: string }) => ({
+    const treatmentsToDelete = existingTreatmentIds.filter(
+      (existingId) => !incomingTreatmentIds.includes(existingId),
+    );
+
+    await prisma.$transaction(async (tx) => {
+      /*
+       * Update patient information
+       */
+      await tx.patient.update({
+        where: {
+          id: patientId,
+        },
+        data: {
+          firstName: body.firstName,
+          lastName: body.lastName,
+          phone: body.phone,
+          totalPrice: Number(body.totalPrice),
+          address: body.address,
+        },
+      });
+
+      /*
+       * Delete treatments that were removed
+       */
+      if (treatmentsToDelete.length > 0) {
+        await tx.treatment.deleteMany({
+          where: {
+            id: {
+              in: treatmentsToDelete,
+            },
+            patientId,
+          },
+        });
+      }
+
+      /*
+       * Update existing treatments
+       * Their createdAt stays unchanged.
+       */
+      for (const treatment of incomingTreatments) {
+        if (treatment.id) {
+          await tx.treatment.update({
+            where: {
+              id: Number(treatment.id),
+            },
+            data: {
               name: treatment.name,
               before: treatment.before,
               after: treatment.after,
-            }),
-          ),
-        },
-      },
+            },
+          });
+        } else {
+          /*
+           * New treatment
+           * createdAt is automatically set by Prisma.
+           */
+          await tx.treatment.create({
+            data: {
+              name: treatment.name,
+              before: treatment.before,
+              after: treatment.after,
+              patientId,
+            },
+          });
+        }
+      }
+    });
 
+    /*
+     * Get the updated patient with treatments and payments
+     */
+    const updatedPatient = await prisma.patient.findUnique({
+      where: {
+        id: patientId,
+      },
       include: {
         treatments: true,
         payments: {
@@ -118,9 +186,15 @@ export async function DELETE(
   try {
     const { id } = await params;
 
+    const patientId = Number(id);
+
+    if (isNaN(patientId)) {
+      return Response.json({ message: "Invalid patient ID" }, { status: 400 });
+    }
+
     await prisma.patient.delete({
       where: {
-        id: Number(id),
+        id: patientId,
       },
     });
 

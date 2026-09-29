@@ -23,6 +23,7 @@ type PatientTableProps = {
   openPayments: number | null;
   onTogglePayments: (patientId: number) => void;
   onAddPayment: (patient: Patient) => void;
+  onDeletePayment: (patientId: number, paymentId: number) => void;
   onView: (patient: Patient) => void;
   onEdit: (patient: Patient) => void;
   onDelete: (patient: Patient) => void;
@@ -38,6 +39,7 @@ export default function PatientTable({
   openPayments,
   onTogglePayments,
   onAddPayment,
+  onDeletePayment,
   onView,
   onEdit,
   onDelete,
@@ -258,6 +260,16 @@ export default function PatientTable({
                                     <span className="font-bold text-emerald-600">
                                       +{formatMoney(payment.amount)}
                                     </span>
+                                    <button
+                                      type="button"
+                                      title={`Delete Payment ${paymentNumber}`}
+                                      onClick={() =>
+                                        onDeletePayment(patient.id, payment.id)
+                                      }
+                                      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition hover:bg-red-50 hover:text-red-600"
+                                    >
+                                      <Trash2 size={17} />
+                                    </button>
                                   </div>
                                 );
                               })}

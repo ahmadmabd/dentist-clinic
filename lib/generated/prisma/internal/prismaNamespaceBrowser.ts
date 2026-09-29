@@ -89,6 +89,7 @@ export const TreatmentScalarFieldEnum = {
   name: 'name',
   before: 'before',
   after: 'after',
+  createdAt: 'createdAt',
   patientId: 'patientId'
 } as const
 

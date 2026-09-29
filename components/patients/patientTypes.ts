@@ -3,6 +3,7 @@ export type Treatment = {
   name: string;
   before: string;
   after: string;
+  createdAt?: string;
 };
 
 export type Payment = {

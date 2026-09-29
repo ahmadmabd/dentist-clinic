@@ -41,6 +41,7 @@ export type TreatmentMinAggregateOutputType = {
   name: string | null
   before: string | null
   after: string | null
+  createdAt: Date | null
   patientId: number | null
 }
 
@@ -49,6 +50,7 @@ export type TreatmentMaxAggregateOutputType = {
   name: string | null
   before: string | null
   after: string | null
+  createdAt: Date | null
   patientId: number | null
 }
 
@@ -57,6 +59,7 @@ export type TreatmentCountAggregateOutputType = {
   name: number
   before: number
   after: number
+  createdAt: number
   patientId: number
   _all: number
 }
@@ -77,6 +80,7 @@ export type TreatmentMinAggregateInputType = {
   name?: true
   before?: true
   after?: true
+  createdAt?: true
   patientId?: true
 }
 
@@ -85,6 +89,7 @@ export type TreatmentMaxAggregateInputType = {
   name?: true
   before?: true
   after?: true
+  createdAt?: true
   patientId?: true
 }
 
@@ -93,6 +98,7 @@ export type TreatmentCountAggregateInputType = {
   name?: true
   before?: true
   after?: true
+  createdAt?: true
   patientId?: true
   _all?: true
 }
@@ -188,6 +194,7 @@ export type TreatmentGroupByOutputType = {
   name: string
   before: string
   after: string
+  createdAt: Date
   patientId: number
   _count: TreatmentCountAggregateOutputType | null
   _avg: TreatmentAvgAggregateOutputType | null
@@ -219,6 +226,7 @@ export type TreatmentWhereInput = {
   name?: Prisma.StringFilter<"Treatment"> | string
   before?: Prisma.StringFilter<"Treatment"> | string
   after?: Prisma.StringFilter<"Treatment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Treatment"> | Date | string
   patientId?: Prisma.IntFilter<"Treatment"> | number
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
 }
@@ -228,6 +236,7 @@ export type TreatmentOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   before?: Prisma.SortOrder
   after?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   patient?: Prisma.PatientOrderByWithRelationInput
 }
@@ -240,6 +249,7 @@ export type TreatmentWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Treatment"> | string
   before?: Prisma.StringFilter<"Treatment"> | string
   after?: Prisma.StringFilter<"Treatment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Treatment"> | Date | string
   patientId?: Prisma.IntFilter<"Treatment"> | number
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
 }, "id">
@@ -249,6 +259,7 @@ export type TreatmentOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   before?: Prisma.SortOrder
   after?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   _count?: Prisma.TreatmentCountOrderByAggregateInput
   _avg?: Prisma.TreatmentAvgOrderByAggregateInput
@@ -265,6 +276,7 @@ export type TreatmentScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Treatment"> | string
   before?: Prisma.StringWithAggregatesFilter<"Treatment"> | string
   after?: Prisma.StringWithAggregatesFilter<"Treatment"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Treatment"> | Date | string
   patientId?: Prisma.IntWithAggregatesFilter<"Treatment"> | number
 }
 
@@ -272,6 +284,7 @@ export type TreatmentCreateInput = {
   name: string
   before: string
   after: string
+  createdAt?: Date | string
   patient: Prisma.PatientCreateNestedOneWithoutTreatmentsInput
 }
 
@@ -280,6 +293,7 @@ export type TreatmentUncheckedCreateInput = {
   name: string
   before: string
   after: string
+  createdAt?: Date | string
   patientId: number
 }
 
@@ -287,6 +301,7 @@ export type TreatmentUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patient?: Prisma.PatientUpdateOneRequiredWithoutTreatmentsNestedInput
 }
 
@@ -295,6 +310,7 @@ export type TreatmentUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patientId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -303,6 +319,7 @@ export type TreatmentCreateManyInput = {
   name: string
   before: string
   after: string
+  createdAt?: Date | string
   patientId: number
 }
 
@@ -310,6 +327,7 @@ export type TreatmentUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TreatmentUncheckedUpdateManyInput = {
@@ -317,6 +335,7 @@ export type TreatmentUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patientId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -335,6 +354,7 @@ export type TreatmentCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   before?: Prisma.SortOrder
   after?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
 }
 
@@ -348,6 +368,7 @@ export type TreatmentMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   before?: Prisma.SortOrder
   after?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
 }
 
@@ -356,6 +377,7 @@ export type TreatmentMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   before?: Prisma.SortOrder
   after?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
 }
 
@@ -406,10 +428,15 @@ export type TreatmentUncheckedUpdateManyWithoutPatientNestedInput = {
   deleteMany?: Prisma.TreatmentScalarWhereInput | Prisma.TreatmentScalarWhereInput[]
 }
 
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
+}
+
 export type TreatmentCreateWithoutPatientInput = {
   name: string
   before: string
   after: string
+  createdAt?: Date | string
 }
 
 export type TreatmentUncheckedCreateWithoutPatientInput = {
@@ -417,6 +444,7 @@ export type TreatmentUncheckedCreateWithoutPatientInput = {
   name: string
   before: string
   after: string
+  createdAt?: Date | string
 }
 
 export type TreatmentCreateOrConnectWithoutPatientInput = {
@@ -453,6 +481,7 @@ export type TreatmentScalarWhereInput = {
   name?: Prisma.StringFilter<"Treatment"> | string
   before?: Prisma.StringFilter<"Treatment"> | string
   after?: Prisma.StringFilter<"Treatment"> | string
+  createdAt?: Prisma.DateTimeFilter<"Treatment"> | Date | string
   patientId?: Prisma.IntFilter<"Treatment"> | number
 }
 
@@ -461,12 +490,14 @@ export type TreatmentCreateManyPatientInput = {
   name: string
   before: string
   after: string
+  createdAt?: Date | string
 }
 
 export type TreatmentUpdateWithoutPatientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TreatmentUncheckedUpdateWithoutPatientInput = {
@@ -474,6 +505,7 @@ export type TreatmentUncheckedUpdateWithoutPatientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TreatmentUncheckedUpdateManyWithoutPatientInput = {
@@ -481,6 +513,7 @@ export type TreatmentUncheckedUpdateManyWithoutPatientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   before?: Prisma.StringFieldUpdateOperationsInput | string
   after?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -490,6 +523,7 @@ export type TreatmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   name?: boolean
   before?: boolean
   after?: boolean
+  createdAt?: boolean
   patientId?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["treatment"]>
@@ -499,6 +533,7 @@ export type TreatmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   name?: boolean
   before?: boolean
   after?: boolean
+  createdAt?: boolean
   patientId?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["treatment"]>
@@ -508,6 +543,7 @@ export type TreatmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   name?: boolean
   before?: boolean
   after?: boolean
+  createdAt?: boolean
   patientId?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["treatment"]>
@@ -517,10 +553,11 @@ export type TreatmentSelectScalar = {
   name?: boolean
   before?: boolean
   after?: boolean
+  createdAt?: boolean
   patientId?: boolean
 }
 
-export type TreatmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "before" | "after" | "patientId", ExtArgs["result"]["treatment"]>
+export type TreatmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "before" | "after" | "createdAt" | "patientId", ExtArgs["result"]["treatment"]>
 export type TreatmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
 }
@@ -541,6 +578,7 @@ export type $TreatmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     name: string
     before: string
     after: string
+    createdAt: Date
     patientId: number
   }, ExtArgs["result"]["treatment"]>
   composites: {}
@@ -970,6 +1008,7 @@ export interface TreatmentFieldRefs {
   readonly name: Prisma.FieldRef<"Treatment", 'String'>
   readonly before: Prisma.FieldRef<"Treatment", 'String'>
   readonly after: Prisma.FieldRef<"Treatment", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Treatment", 'DateTime'>
   readonly patientId: Prisma.FieldRef<"Treatment", 'Int'>
 }
     

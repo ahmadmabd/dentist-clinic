@@ -24,6 +24,7 @@ model Treatment {
   name      String
   before    String
   after     String
+  createdAt DateTime @default(now())
   patientId Int
 
   patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)

@@ -394,6 +394,41 @@ export default function PatientPage() {
   }
 
   // =====================================================
+  // DELETE PAYMENTS
+  // =====================================================
+
+  async function handleDeletePayment(patientId: number, paymentId: number) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this payment?",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `/api/patients/${patientId}/payments/${paymentId}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => null);
+
+        throw new Error(result?.message || "Failed to delete payment");
+      }
+
+      await fetchPatients();
+    } catch (error) {
+      alert(
+        error instanceof Error ? error.message : "Failed to delete payment",
+      );
+    }
+  }
+
+  // =====================================================
   // STATISTICS
   // =====================================================
 
@@ -571,6 +606,7 @@ export default function PatientPage() {
           openPayments={openPayments}
           onTogglePayments={togglePayments}
           onAddPayment={openPaymentModal}
+          onDeletePayment={handleDeletePayment}
           onView={openViewModal}
           onEdit={openEditPatientModal}
           onDelete={handleDeletePatient}
